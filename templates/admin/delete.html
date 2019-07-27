@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>删除页面</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        table, td {
+
+            text-align: center;
+            border: 2px black solid;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <thead>
+    <td>序号</td>
+    <td>电影名称</td>
+    <td>是否免费</td>
+    {#    <th>上传者</th>#}
+    <td>上传时间</td>
+    <td>操作</td>
+    </thead>
+    <tbody>
+    <a href="/admin_views/">返回到首页</a>
+    {% for movie in movie_list %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ movie.name }}</td>
+            {% if movie.is_free == 0 %}
+                <td>免费</td>
+            {% else %}
+                <td>收费</td>
+            {% endif %}
+            {#            <td>{{ movie.uid }}</td>#}
+            <td>{{ movie.up_time }}</td>
+            <td><a href="/delete_movie/?id={{ movie.id }}">删除</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

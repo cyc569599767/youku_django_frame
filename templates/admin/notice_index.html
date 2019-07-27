@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>公告管理页面</title>
+    <style>
+        table, td {
+            padding: 0;
+            border: 1px black solid;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+<table>
+    <thead>
+    <a href="/publish_notice/">发布公告</a>_____<a href="/admin_views/">返回首页</a>
+    <td>序号</td>
+    <td>标题</td>
+    <td>内容</td>
+    <td>发布时间</td>
+    <td>操作</td>
+    </thead>
+    <tbody>
+    {% for notice in notices %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ notice.title }}</td>
+            <td>{{ notice.content }}</td>
+            <td>{{ notice.pub_time }}</td>
+            <td><a href="/delete_notice/?id={{ notice.id }}">删除</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

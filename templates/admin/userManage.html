@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理页面</title>
+    <style>
+        table, td {
+            padding: 0;
+            border: 1px black solid;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<a href="/admin_views/">返回首页</a>
+<p>当前用户数量为{{ nums }}</p>
+<table>
+    <thead>
+    <td>序号</td>
+    <td>用户名</td>
+    <td>用户身份</td>
+    <td>锁状态</td>
+    <td>操作</td>
+    </thead>
+    <tbody>
+    {% for user in users %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ user.name }}</td>
+            {% if user.vip == 1 %}
+                <td>会员</td>
+            {% else %}
+                <td>非会员</td>
+            {% endif %}
+
+            {% if user.islock == 1 %}
+                <td>已锁定</td>
+            {% else %}
+                <td>未锁定</td>
+            {% endif %}
+            <td><a href="/lock/?id={{ user.id }}">锁定用户</a>__
+                <a href="/nolock/?id={{ user.id }}">解锁用户</a>
+            </td>
+        </tr>
+
+    {% endfor %}
+    </tbody>
+</table>
+{{ msg }}
+</body>
+</html>
