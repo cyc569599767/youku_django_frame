@@ -6,7 +6,7 @@ from app01 import models
 
 
 def admin_views(request):
-    return render(request, 'admin/admin_index.html', {'name': 'yaco'})
+    return redirect('/admin_index/')
 
 
 def upload(request):
