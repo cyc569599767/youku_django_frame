@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from app01 import models
-
+from lib.common import userinfo
 userinfo = {'username': None}
 
 
@@ -17,9 +17,11 @@ def login(request):
 
     username = request.POST.get('username')
     password = request.POST.get('password')
-    user_obj = models.User.objects.filter(name=username)
-    if user_obj and user_obj[0].pwd == password:
-        if user_obj[0].utype == 1:
+    user_obj = models.User.objects.filter(name=username)[0]
+    if user_obj and user_obj.pwd == password:
+        if user_obj.utype == 1:
+            userinfo['username'] = user_obj.name
+            userinfo['utype'] = user_obj.utype
             return render(request, 'admin/admin_index.html', {'name': user_obj[0].name})
         return render(request, 'user/user_index.html', {'name': user_obj[0].name})
 

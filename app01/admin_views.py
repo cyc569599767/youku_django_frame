@@ -3,12 +3,15 @@ import os
 from youku_like.settings import MOVIE_DIR
 from django.shortcuts import render, redirect, HttpResponse
 from app01 import models
+from lib.common import wrapper
 
 
+@wrapper
 def admin_views(request):
     return redirect('/admin_index/')
 
 
+@wrapper
 def upload(request):
     '''文件上传'''
     movie_info = {}
@@ -33,12 +36,14 @@ def upload(request):
         return render(request, 'admin/upload.html', {'msg': '电影上传成功'})
 
 
+@wrapper
 def delete(request):
     '''删除文件首页'''
     objs = models.Movie.objects.all()
     return render(request, 'admin/delete.html', {'movie_list': objs})
 
 
+@wrapper
 def delete_movie(request):
     '''删除视频'''
     movie_id = request.GET.get('id')
@@ -49,12 +54,14 @@ def delete_movie(request):
     return redirect('/delete/')
 
 
+@wrapper
 def notice_manage(request):
     '''公告管理页面'''
     notices = models.Notice.objects.all()
     return render(request, 'admin/notice_index.html', {'notices': notices})
 
 
+@wrapper
 def publish_notice(request):
     if request.method == 'GET':
         return render(request, 'admin/publish_notice.html')
@@ -66,6 +73,7 @@ def publish_notice(request):
     return redirect('/notice_manage/')
 
 
+@wrapper
 def delete_notice(request):
     notice_id = request.GET.get('id')
     obj = models.Notice.objects.filter(id=notice_id)[0]
@@ -73,6 +81,7 @@ def delete_notice(request):
     return redirect('/notice_manage/')
 
 
+@wrapper
 def userManage(request):
     objs = models.User.objects.filter(utype=0)
     nums = objs.count()
@@ -80,6 +89,7 @@ def userManage(request):
     return render(request, 'admin/userManage.html', {'nums': nums, 'users': objs})
 
 
+@wrapper
 def lock(request):
     id = request.GET.get('id')
     obj = models.User.objects.filter(id=id)[0]
@@ -91,6 +101,7 @@ def lock(request):
     return render(request, 'admin/userManage.html', {'nums': nums, 'users': objs, 'msg': '锁定成功'})
 
 
+@wrapper
 def nolock(request):
     id = request.GET.get('id')
     obj = models.User.objects.filter(id=id)[0]
