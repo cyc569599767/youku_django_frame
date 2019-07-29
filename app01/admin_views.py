@@ -8,7 +8,7 @@ from lib.common import wrapper
 
 @wrapper
 def admin_views(request):
-    return redirect('/admin_index/')
+    return render(request, 'admin/admin_index.html', {'name': 'yaco'})
 
 
 @wrapper
